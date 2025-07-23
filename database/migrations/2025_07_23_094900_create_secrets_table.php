@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('secrets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('team_id')->index('team_id');
-            $table->unsignedBigInteger('user_id')->index('user_id')->nullable();
-            $table->unsignedBigInteger('team_role_id')->index('team_role_id')->nullable();
+            $table->unsignedBigInteger('team_id')->index();
+            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->unsignedBigInteger('team_role_id')->nullable()->index();
             $table->string('name');
             $table->text('content');
             $table->timestamp('created_at')->useCurrent();

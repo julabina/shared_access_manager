@@ -10,7 +10,7 @@ use ParagonIE\CipherSweet\EncryptedRow;
 use Spatie\LaravelCipherSweet\Concerns\UsesCipherSweet;
 use Spatie\LaravelCipherSweet\Contracts\CipherSweetEncrypted;
 
-class Secrets extends Model implements CipherSweetEncrypted
+class Secret extends Model implements CipherSweetEncrypted
 {
     /** @use HasFactory<\Database\Factories\SecretsFactory> */
     use HasFactory, SoftDeletes, UsesCipherSweet;

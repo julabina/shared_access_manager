@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index('user_id');
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('name');
             $table->text('description')->nullable();
             $table->timestamp('created_at')->useCurrent();

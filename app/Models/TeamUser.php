@@ -6,19 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TeamRoles extends Model
+class TeamUser extends Model
 {
-    /** @use HasFactory<\Database\Factories\TeamRolesFactory> */
+    /** @use HasFactory<\Database\Factories\TeamUsersFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $table = 'team_roles';
+    protected $table = 'team_users';
 
     protected $cast = [
+        'user_id' => 'int',
         'team_id' => 'int',
+        'team_role_id' => 'int',
     ];
 
     protected $fillable = [
+        'user_id',
         'team_id',
-        'role',
+        'team_role_id',
     ];
 }
