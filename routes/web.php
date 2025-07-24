@@ -13,6 +13,7 @@ Route::get('/', [HomeController::class, 'show'])->middleware(['auth', 'verified'
 Route::as('team.')->prefix('teams')->middleware(['auth', 'verified'])->controller(TeamController::class)->group(function () {
     Route::get('/create', 'createDisplay')->name('createDisplay');
     Route::post('/create', 'store')->name('store');
+    Route::post('/add/mail/{id}', 'addUserByMail')->name('addUserByMail');
     Route::get('/{id}', 'show')->name('show');
 });
 

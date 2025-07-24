@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Team extends Model
 {
@@ -22,4 +23,14 @@ class Team extends Model
         'name',
         'description',
     ];
+
+    /**
+     * display all team members
+     *
+     * @return hasMany<TeamUser>
+     */
+    public function team_users()
+    {
+        return $this->hasMany(TeamUser::class);
+    }
 }

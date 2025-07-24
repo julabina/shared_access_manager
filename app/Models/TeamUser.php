@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TeamUser extends Model
 {
@@ -24,4 +25,14 @@ class TeamUser extends Model
         'team_id',
         'team_role_id',
     ];
+
+    /**
+     * Display user
+     *
+     * @return BelongsTo<User, TeamUser>
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

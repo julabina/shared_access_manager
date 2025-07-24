@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use App\Services\TeamService;
 use App\Models\Team;
+use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -12,7 +14,7 @@ class TeamController extends Controller
 {
     public function show(Int $id, Request $request)
     {
-        $team = Team::where('id', $id)->first();
+        $team = Team::where('id', $id)->with('team_users.user')->first();
 
         if ($team) {
             return Inertia::render('Team/Show', [
@@ -47,5 +49,25 @@ class TeamController extends Controller
         }
 
         return back();
+    }
+
+    public function addUserByMail(Int $id, Request $request)
+    {
+        $request->validate([
+            'email' => 'email|required'
+        ]);
+
+        $teamService = new TeamService();
+
+        $result = $teamService->addToTeam($request->email, $id);
+
+        //GERER APRES LES NOTIFS
+
+        if ($result) {
+            return back();
+        } else {
+        }
+
+        dd('BUG, NO ADDED TO TEAM');
     }
 }
