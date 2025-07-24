@@ -35,4 +35,14 @@ class TeamUser extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Display team
+     *
+     * @return BelongsTo<Team, TeamUser>
+     */
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
 }
