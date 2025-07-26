@@ -42,7 +42,5 @@
         userTeams: Array,
         teams: Array,
     });
-
-    console.log(props);
     
 </script>

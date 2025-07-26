@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Services\TeamService;
 use App\Models\Team;
+use App\Models\TeamUser;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -57,6 +58,10 @@ class TeamController extends Controller
             'email' => 'email|required'
         ]);
 
+        if ($request->email === $request->user()->email) {
+            return back();
+        }
+
         $teamService = new TeamService();
 
         $result = $teamService->addToTeam($request->email, $id);
@@ -69,5 +74,19 @@ class TeamController extends Controller
         }
 
         dd('BUG, NO ADDED TO TEAM');
+    }
+
+    public function removeUsers(Int $id, Request $request)
+    {
+        /* VALIDATE ARRAY CONTENT */
+        $request->validate([
+            'list' => 'array'
+        ]);
+
+        $removeList = TeamUser::where('team_id', $id)->whereIn('user_id', $request->list)->get();
+
+        foreach ($removeList as $key => $value) {
+            $value->delete();
+        }
     }
 }

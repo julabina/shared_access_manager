@@ -3,7 +3,7 @@
         <div class="border">
             <button @click="" class="btn-primary"><i class="fa-solid fa-users"></i></button>
             <button @click="" class="btn-primary"><i class="fa-solid fa-pause"></i></button>
-            <button @click="" class="btn-primary"><i class="fa-solid fa-trash"></i></button>
+            <button @click="removeUsers" class="btn-primary"><i class="fa-solid fa-trash"></i></button>
         </div>
         <UserForList  v-for="(a, ind) in list" :key="'listUserForTeam' + ind" :user="a" :add="() => updateSelectedUser(a.user.id, true)" :rem="() => updateSelectedUser(a.user.id, false)"/>
     </div>
@@ -12,13 +12,15 @@
 <script setup>
     import UserForList from '@/Components/Teams/UserForList.vue';
     import { ref } from 'vue';
+    import { router } from '@inertiajs/vue3';
 
     const selectedUser = ref([]);
 
     const props = defineProps({
-        list: Array
+        list: Array,
+        teamId: Number,
     });
-
+    
     const updateSelectedUser = (id, isChecked) => {
         let selected = false;
         
@@ -39,4 +41,14 @@
         }        
     };
     
+    const removeUsers = () => {
+        if (selectedUser.value.length > 0) {
+            router.visit(route('team.removeUsers', { id: props.teamId }), {
+                method: "delete",
+                data: {
+                    list: selectedUser.value
+                }
+            });
+        }
+    };
 </script>

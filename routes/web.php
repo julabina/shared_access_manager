@@ -15,6 +15,7 @@ Route::as('team.')->prefix('teams')->middleware(['auth', 'verified'])->controlle
     Route::post('/create', 'store')->name('store');
     Route::post('/add/mail/{id}', 'addUserByMail')->name('addUserByMail');
     Route::get('/{id}', 'show')->name('show');
+    Route::delete('/removeUsers/{id}', 'removeUsers')->name('removeUsers');
 });
 
 Route::middleware('auth')->group(function () {
